@@ -61,9 +61,9 @@ app.post('/api/notes', (request, response) => {
   }
 
   const note = {
-    content: body.content,
-    important: body.important || false,
     id: generateId(),
+    content: body.content,
+    important: body.important || false
   }
 
   notes = notes.concat(note)
@@ -77,6 +77,22 @@ app.delete('/api/notes/:id', (request, response) => {
 
   response.status(204).end()
 })
+
+app.put('/api/notes/:id', (request, response)=>{
+  const id = request.params.id
+  const body = request.body
+
+  const note = {
+    id: id,
+    content: body.content,
+    important: body.important
+  }
+
+  notes = notes.map(n => id.id !== id ? n : note)
+
+  response.json(note)
+})
+
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
