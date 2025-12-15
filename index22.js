@@ -20,6 +20,7 @@ const cors = require('cors')
 app.use(cors())
 
 
+
 const now = new Date()
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data', {skip: (req) => 
@@ -27,6 +28,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :d
 }))
 app.use(express.json())
 // app.use(requestLogger)
+app.use(express.static('dist'))
 
 let persons = [
     { 
@@ -128,8 +130,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
-
