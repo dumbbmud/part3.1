@@ -118,6 +118,21 @@ app.post('/api/persons', (request, response)=>{
     response.json(persons)
 })
 
+app.put('/api/persons/:id', (request, response)=> {
+    const id = request.params.id
+    const body = request.body
+
+    const contact = {
+        id: id,
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.map(p => p.id !== id ? p : contact)
+
+    response.json(contact)
+})
+
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
     persons = persons.filter(p => p.id !== id)
