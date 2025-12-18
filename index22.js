@@ -16,8 +16,8 @@ morgan.token('data', function(req, res) {
     return JSON.stringify(req.body)
 })
 
-const cors = require('cors')
-app.use(cors())
+// const cors = require('cors')
+// app.use(cors())
 
 
 
