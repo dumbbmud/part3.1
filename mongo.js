@@ -15,6 +15,7 @@ const name = process.argv[3]
 const number = process.argv[4]
 
 const url = `mongodb+srv://fullstack:${password}@cluster0.lb5pplr.mongodb.net/phonebookApp?appName=Cluster0`
+// mongodb+srv://fullstack:$Fullstack12345.@cluster0.lb5pplr.mongodb.net/noteApp?appName=Cluster0
 
 mongoose.set('strictQuery',false)
 

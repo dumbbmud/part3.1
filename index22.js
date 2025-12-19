@@ -8,6 +8,7 @@
 
 // -------------------------------------
 
+require('dotenv').config()
 const express = require('express')
 const app = express()
 
@@ -30,9 +31,11 @@ app.use(express.json())
 // app.use(requestLogger)
 app.use(express.static('dist'))
 
+const Contact = require('./models/phonebook')
+
 let persons = [
     { 
-      "id": "1",
+      "id": "69438b180d1d4303f50b0cdc",
       "name": "Arto Hellas", 
       "number": "040-123456"
     },
@@ -58,7 +61,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Contact.find({}).then(contacts => {
+        response.json(contacts)
+    })
 })
 
 app.get('/info', (request, response)=>{
@@ -68,15 +73,10 @@ app.get('/info', (request, response)=>{
 
 app.get('/api/persons/:id', (request, response)=>{
     const id = request.params.id
-    const person = persons.filter(p => p.id === id)
-    console.log(person)
-    if (person.length > 0) {
-        return response.json(person)
-    } else {
-        return response.status(400).json({
-            error: "this ID doesn't exist!"
-        })
-    }
+
+    Contact.findById(id).then(contact => {
+        response.json(contact)
+    })
 
 })
 
@@ -99,6 +99,15 @@ app.post('/api/persons', (request, response)=>{
             error: 'name or phone number missing'
         })
     }
+
+    const contact = new Contact({
+        name: body.name,
+        number: body.number,
+    })
+
+    contact.save().then(contacts=>{
+        response.json(contacts)
+    })
 
     const matchedName = persons.find(p => p.name === body.name)
 

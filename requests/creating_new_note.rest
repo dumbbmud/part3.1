@@ -7,3 +7,12 @@ Content-Type: application/json
 }
 
 ### 
+GET http://localhost:3001/api/persons/69438b180d1d4303f50b0cdc
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+{
+    "name": "Bri lopez",
+    "number": "879-876-9090"
+}
